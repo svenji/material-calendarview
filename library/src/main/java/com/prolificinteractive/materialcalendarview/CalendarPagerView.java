@@ -19,7 +19,6 @@ import java.util.List;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SHOW_DEFAULTS;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.showOtherMonths;
 import static java.util.Calendar.DATE;
-import static java.util.Calendar.DAY_OF_WEEK;
 
 abstract class CalendarPagerView extends ViewGroup implements View.OnClickListener {
 
@@ -65,7 +64,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
     protected void addDayView(Collection<DayView> dayViews, Calendar calendar) {
         CalendarDay day = CalendarDay.from(calendar);
-        DayView dayView = new DayView(getContext(), day);
+        DayView dayView = new DefaultDayView(getContext(), day);
         dayView.setOnClickListener(this);
         dayViews.add(dayView);
         addView(dayView, new LayoutParams());
@@ -112,7 +111,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
     public void setDateTextAppearance(int taId) {
         for (DayView dayView : dayViews) {
-            dayView.setTextAppearance(getContext(), taId);
+            dayView.getDayOfMonthTextView().setTextAppearance(getContext(), taId);
         }
     }
 
@@ -159,7 +158,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     public void setSelectedDates(Collection<CalendarDay> dates) {
         for (DayView dayView : dayViews) {
             CalendarDay day = dayView.getDate();
-            dayView.setChecked(dates != null && dates.contains(day));
+            dayView.setSelected(dates != null && dates.contains(day));
         }
         postInvalidate();
     }
