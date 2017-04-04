@@ -179,6 +179,7 @@ public class MaterialCalendarView extends ViewGroup {
     private CalendarDay currentMonth;
     private LinearLayout topbar;
     private CalendarMode calendarMode;
+    private DayViewProvider mDayViewProvider;
     /**
      * Used for the dynamic calendar height.
      */
@@ -275,6 +276,8 @@ public class MaterialCalendarView extends ViewGroup {
                 page.setAlpha(position);
             }
         });
+
+        mDayViewProvider = new DefaultDayViewProvider(getContext());
 
         TypedArray a = context.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.MaterialCalendarView, 0, 0);
@@ -1261,6 +1264,18 @@ public class MaterialCalendarView extends ViewGroup {
         return mDynamicHeightEnabled;
     }
 
+    /**
+     * Sets the DayView provider
+     *
+     * @param dayViewProvider provider to use
+     */
+    public void setDayViewProvider(DayViewProvider dayViewProvider) {
+        this.mDayViewProvider = dayViewProvider;
+    }
+
+    public DayViewProvider getDayViewProvider() {
+        return this.mDayViewProvider;
+    }
 
     /**
      * Add a collection of day decorators
