@@ -33,7 +33,7 @@ import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.
  * Display one day of a {@linkplain MaterialCalendarView}
  */
 @SuppressLint("ViewConstructor")
-abstract class DayView extends FrameLayout {
+public abstract class DayView extends FrameLayout {
 
     private CalendarDay date;
     private int selectionColor = Color.GRAY;
