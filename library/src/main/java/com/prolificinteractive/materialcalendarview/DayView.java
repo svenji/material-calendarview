@@ -54,6 +54,7 @@ public abstract class DayView extends FrameLayout {
     public DayView(Context context, CalendarDay day) {
         super(context);
 
+        date = day;
         fadeTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         setSelectionColor(this.selectionColor);
@@ -61,12 +62,17 @@ public abstract class DayView extends FrameLayout {
 
     public abstract TextView getDayOfMonthTextView();
 
+    public abstract View getSelectorView();
+
     public boolean isSelected() {
         return isSelected;
     }
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+        if (getSelectorView() != null) {
+            getSelectorView().setVisibility(selected ? View.VISIBLE : View.GONE);
+        }
     }
 
     public void setDay(CalendarDay date) {
@@ -186,6 +192,10 @@ public abstract class DayView extends FrameLayout {
     }
 
     private void regenerateBackground() {
+        if (getSelectorView() != null) {
+            return;
+        }
+
         if (selectionDrawable != null) {
             setBackgroundDrawable(selectionDrawable);
         } else {

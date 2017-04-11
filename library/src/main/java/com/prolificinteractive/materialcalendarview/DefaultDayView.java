@@ -3,6 +3,7 @@ package com.prolificinteractive.materialcalendarview;
 import android.content.Context;
 import android.os.Build;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 public class DefaultDayView extends DayView {
@@ -24,5 +25,11 @@ public class DefaultDayView extends DayView {
     @Override
     public TextView getDayOfMonthTextView() {
         return mDayOfMonth;
+    }
+
+    @Override
+    public View getSelectorView() {
+        // Return a custom selector view here
+        return null;
     }
 }
