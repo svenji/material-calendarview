@@ -1469,10 +1469,9 @@ public class MaterialCalendarView extends ViewGroup {
             case SELECTION_MODE_SINGLE: {
                 CalendarDay previous = selectedDates.size() > 0 ? selectedDates.get(0) : null;
                 adapter.clearSelections();
-                if (previous == null || !previous.equals(date)) {
-                    adapter.setDateSelected(date, true);
-                    dispatchOnDateSelected(date, true);
-                }
+                boolean selected = previous == null || !previous.equals(date); // Deselect date if clicking on currently selected date
+                adapter.setDateSelected(date, selected);
+                dispatchOnDateSelected(date, selected);
             }
             break;
         }
