@@ -18,6 +18,5 @@ public interface DayViewDecorator {
      *
      * @param view View to decorate
      */
-    void decorate(DayViewFacade view);
-
+    void decorate(DayView view);
 }

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayView;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.Calendar;
@@ -56,8 +56,8 @@ public class DisableDaysActivity extends AppCompatActivity {
         }
 
         @Override
-        public void decorate(DayViewFacade view) {
-            view.setDaysDisabled(true);
+        public void decorate(DayView view) {
+            view.setDayDisabled(true);
         }
 
         private static boolean[] PRIME_TABLE = {
@@ -107,8 +107,8 @@ public class DisableDaysActivity extends AppCompatActivity {
         }
 
         @Override
-        public void decorate(DayViewFacade view) {
-            view.setDaysDisabled(false);
+        public void decorate(DayView view) {
+            view.setDayDisabled(false);
         }
     }
 }
