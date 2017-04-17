@@ -60,17 +60,12 @@ public abstract class DayView extends FrameLayout {
 
     public abstract TextView getDayOfMonthTextView();
 
-    public abstract View getSelectorView();
-
     public boolean isSelected() {
         return isSelected;
     }
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-        if (getSelectorView() != null) {
-            getSelectorView().setVisibility(selected ? View.VISIBLE : View.GONE);
-        }
     }
 
     public void setDay(CalendarDay date) {
@@ -190,10 +185,6 @@ public abstract class DayView extends FrameLayout {
     }
 
     private void regenerateBackground() {
-        if (getSelectorView() != null) {
-            return;
-        }
-
         if (selectionDrawable != null) {
             setBackgroundDrawable(selectionDrawable);
         } else {
@@ -228,12 +219,13 @@ public abstract class DayView extends FrameLayout {
         ColorStateList list = ColorStateList.valueOf(color);
         Drawable mask = generateCircleDrawable(Color.WHITE);
         RippleDrawable rippleDrawable = new RippleDrawable(list, null, mask);
-//        API 21
+
+        // API 21
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
             rippleDrawable.setBounds(bounds);
         }
 
-//        API 22. Technically harmless to leave on for API 21 and 23, but not worth risking for 23+
+        // API 22. Technically harmless to leave on for API 21 and 23, but not worth risking for 23+
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
             int center = (bounds.left + bounds.right) / 2;
             rippleDrawable.setHotspotBounds(center, bounds.top, center, bounds.bottom);
@@ -246,32 +238,6 @@ public abstract class DayView extends FrameLayout {
         isDecoratedDisabled = dayDisabled;
         setEnabled();
     }
-
-//    /**
-//     * @param facade apply the facade to us
-//     */
-//    void applyFacade(DayViewFacade facade) {
-//        this.isDecoratedDisabled = facade.areDaysDisabled();
-//        setEnabled();
-//
-//        setCustomBackground(facade.getBackgroundDrawable());
-//        setSelectionDrawable(facade.getSelectionDrawable());
-//
-//        // Facade has spans
-//        List<DayViewFacade.Span> spans = facade.getSpans();
-//        if (!spans.isEmpty()) {
-//            String label = getLabel();
-//            SpannableString formattedLabel = new SpannableString(getLabel());
-//            for (DayViewFacade.Span span : spans) {
-//                formattedLabel.setSpan(span.span, 0, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            }
-//            getDayOfMonthTextView().setText(formattedLabel);
-//        }
-//        // Reset in case it was customized previously
-//        else {
-//            getDayOfMonthTextView().setText(getLabel());
-//        }
-//    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
