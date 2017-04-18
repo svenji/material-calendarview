@@ -1441,6 +1441,7 @@ public class MaterialCalendarView extends ViewGroup {
      * @param nowSelected true if the date is now selected, false otherwise
      */
     protected void onDateClicked(@NonNull CalendarDay date, boolean nowSelected) {
+        List<CalendarDay> selectedDates = adapter.getSelectedDates();
         switch (selectionMode) {
             case SELECTION_MODE_MULTIPLE: {
                 adapter.setDateSelected(date, nowSelected);
@@ -1449,16 +1450,15 @@ public class MaterialCalendarView extends ViewGroup {
             break;
             case SELECTION_MODE_RANGE: {
                 adapter.setDateSelected(date, nowSelected);
-                if (adapter.getSelectedDates().size() > 2) {
+                if (selectedDates.size() > 2) {
                     adapter.clearSelections();
                     adapter.setDateSelected(date, nowSelected);  //  re-set because adapter has been cleared
                     dispatchOnDateSelected(date, nowSelected);
                 } else if (adapter.getSelectedDates().size() == 2) {
-                    final List<CalendarDay> dates = adapter.getSelectedDates();
-                    if (dates.get(0).isAfter(dates.get(1))) {
-                        dispatchOnRangeSelected(dates.get(1), dates.get(0));
+                    if (selectedDates.get(0).isAfter(selectedDates.get(1))) {
+                        dispatchOnRangeSelected(selectedDates.get(1), selectedDates.get(0));
                     } else {
-                        dispatchOnRangeSelected(dates.get(0), dates.get(1));
+                        dispatchOnRangeSelected(selectedDates.get(0), selectedDates.get(1));
                     }
                 } else {
                     adapter.setDateSelected(date, nowSelected);
@@ -1468,9 +1468,11 @@ public class MaterialCalendarView extends ViewGroup {
             break;
             default:
             case SELECTION_MODE_SINGLE: {
+                CalendarDay previous = selectedDates.isEmpty() ? null : selectedDates.get(0);
                 adapter.clearSelections();
-                adapter.setDateSelected(date, true);
-                dispatchOnDateSelected(date, true);
+                boolean isNewSelection = !date.equals(previous);
+                adapter.setDateSelected(date, isNewSelection);
+                dispatchOnDateSelected(date, isNewSelection);
             }
             break;
         }
