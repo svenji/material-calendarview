@@ -23,8 +23,6 @@ import android.widget.TextView;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView.ShowOtherDates;
 import com.prolificinteractive.materialcalendarview.format.DayFormatter;
 
-import java.util.List;
-
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.showDecoratedDisabled;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.showOtherMonths;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.showOutOfRange;
@@ -146,6 +144,11 @@ public abstract class DayView extends FrameLayout {
         return date;
     }
 
+    public void setDayEnabled(boolean enabled) {
+        isDecoratedDisabled = !enabled;
+        setEnabled();
+    }
+
     private void setEnabled() {
         boolean enabled = isInMonth && isInRange && !isDecoratedDisabled;
         super.setEnabled(isInRange && !isDecoratedDisabled);
@@ -245,32 +248,6 @@ public abstract class DayView extends FrameLayout {
         }
 
         return rippleDrawable;
-    }
-
-    /**
-     * @param facade apply the facade to us
-     */
-    void applyFacade(DayViewFacade facade) {
-        this.isDecoratedDisabled = facade.areDaysDisabled();
-        setEnabled();
-
-        setCustomBackground(facade.getBackgroundDrawable());
-        setSelectionDrawable(facade.getSelectionDrawable());
-
-        // Facade has spans
-        List<DayViewFacade.Span> spans = facade.getSpans();
-        if (!spans.isEmpty()) {
-            String label = getLabel();
-            SpannableString formattedLabel = new SpannableString(getLabel());
-            for (DayViewFacade.Span span : spans) {
-                formattedLabel.setSpan(span.span, 0, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-            getDayOfMonthTextView().setText(formattedLabel);
-        }
-        // Reset in case it was customized previously
-        else {
-            getDayOfMonthTextView().setText(getLabel());
-        }
     }
 
     @Override

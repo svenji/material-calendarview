@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayView;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import butterknife.Bind;
@@ -110,8 +110,8 @@ public class CustomTileDimensions extends AppCompatActivity {
     }
 
     @Override
-    public void decorate(DayViewFacade view) {
-      view.setBackgroundDrawable(backgroundDrawable);
+    public void decorate(DayView view) {
+      view.getDayOfMonthTextView().setBackgroundDrawable(backgroundDrawable);
     }
   }
 }
