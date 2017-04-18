@@ -65,6 +65,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     protected void addDayView(Collection<DayView> dayViews, Calendar calendar) {
         CalendarDay day = CalendarDay.from(calendar);
         DayView dayView = mcv.getDayViewProvider().getDayView(day);
+        dayView.getDayOfMonthTextView().setText(dayView.getLabel());
         dayView.setOnClickListener(this);
         dayViews.add(dayView);
         addView(dayView, new LayoutParams());
@@ -167,7 +168,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
         for (DayView dayView : dayViews) {
             CalendarDay day = dayView.getDate();
             dayView.setupSelection(
-                    showOtherDates, day.isInRange(minDate, maxDate), isDayEnabled(day));
+                showOtherDates, day.isInRange(minDate, maxDate), isDayEnabled(day));
         }
         postInvalidate();
     }
@@ -230,13 +231,13 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
             final View child = getChildAt(i);
 
             int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    measureTileWidth,
-                    MeasureSpec.EXACTLY
+                measureTileWidth,
+                MeasureSpec.EXACTLY
             );
 
             int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                    measureTileHeight,
-                    MeasureSpec.EXACTLY
+                measureTileHeight,
+                MeasureSpec.EXACTLY
             );
 
             child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
@@ -245,6 +246,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
     /**
      * Return the number of rows to display per page
+     *
      * @return
      */
     protected abstract int getRows();
@@ -305,7 +307,6 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
         return new LayoutParams();
     }
-
 
     @Override
     public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {

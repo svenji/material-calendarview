@@ -17,7 +17,6 @@ public class DefaultDayView extends DayView {
             setTextAlignment(TEXT_ALIGNMENT_CENTER);
         }
 
-        setDay(day);
         addView(mDayOfMonth);
     }
 

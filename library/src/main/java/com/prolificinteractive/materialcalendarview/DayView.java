@@ -68,7 +68,6 @@ public abstract class DayView extends FrameLayout {
 
     public void setDay(CalendarDay date) {
         this.date = date;
-        getDayOfMonthTextView().setText(getLabel());
     }
 
     /**
