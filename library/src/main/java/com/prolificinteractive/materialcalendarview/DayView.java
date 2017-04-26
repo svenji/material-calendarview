@@ -172,7 +172,7 @@ public abstract class DayView extends FrameLayout {
 
         if (!isInMonth && shouldBeVisible) {
             getDayOfMonthTextView().setTextColor(getDayOfMonthTextView().getTextColors().getColorForState(
-                new int[] { -android.R.attr.state_enabled }, Color.GRAY));
+                    new int[]{-android.R.attr.state_enabled}, Color.GRAY));
         }
         setVisibility(shouldBeVisible ? View.VISIBLE : View.INVISIBLE);
     }
@@ -212,14 +212,14 @@ public abstract class DayView extends FrameLayout {
     private static Drawable generateBackground(int color, int fadeTime, Rect bounds) {
         StateListDrawable drawable = new StateListDrawable();
         drawable.setExitFadeDuration(fadeTime);
-        drawable.addState(new int[] { android.R.attr.state_checked }, generateCircleDrawable(color));
+        drawable.addState(new int[]{android.R.attr.state_checked}, generateCircleDrawable(color));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawable.addState(new int[] { android.R.attr.state_pressed }, generateRippleDrawable(color, bounds));
+            drawable.addState(new int[]{android.R.attr.state_pressed}, generateRippleDrawable(color, bounds));
         } else {
-            drawable.addState(new int[] { android.R.attr.state_pressed }, generateCircleDrawable(color));
+            drawable.addState(new int[]{android.R.attr.state_pressed}, generateCircleDrawable(color));
         }
 
-        drawable.addState(new int[] {}, generateCircleDrawable(Color.TRANSPARENT));
+        drawable.addState(new int[]{}, generateCircleDrawable(Color.TRANSPARENT));
 
         return drawable;
     }

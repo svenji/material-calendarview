@@ -168,7 +168,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
         for (DayView dayView : dayViews) {
             CalendarDay day = dayView.getDate();
             dayView.setupSelection(
-                showOtherDates, day.isInRange(minDate, maxDate), isDayEnabled(day));
+                    showOtherDates, day.isInRange(minDate, maxDate), isDayEnabled(day));
         }
         postInvalidate();
     }
@@ -231,13 +231,13 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
             final View child = getChildAt(i);
 
             int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                measureTileWidth,
-                MeasureSpec.EXACTLY
+                    measureTileWidth,
+                    MeasureSpec.EXACTLY
             );
 
             int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                measureTileHeight,
-                MeasureSpec.EXACTLY
+                    measureTileHeight,
+                    MeasureSpec.EXACTLY
             );
 
             child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
