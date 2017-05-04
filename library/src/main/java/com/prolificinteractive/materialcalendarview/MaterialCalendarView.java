@@ -1826,6 +1826,7 @@ public class MaterialCalendarView extends ViewGroup {
         private final int firstDayOfWeek;
         private final CalendarDay minDate;
         private final CalendarDay maxDate;
+        private final CalendarDay currentDate;
         private final boolean cacheCurrentPosition;
 
         private State(final StateBuilder builder) {
@@ -1833,6 +1834,7 @@ public class MaterialCalendarView extends ViewGroup {
             firstDayOfWeek = builder.firstDayOfWeek;
             minDate = builder.minDate;
             maxDate = builder.maxDate;
+            currentDate = builder.date;
             cacheCurrentPosition = builder.cacheCurrentPosition;
         }
 
@@ -1851,6 +1853,7 @@ public class MaterialCalendarView extends ViewGroup {
         private boolean cacheCurrentPosition = false;
         private CalendarDay minDate = null;
         private CalendarDay maxDate = null;
+        private CalendarDay date = null;
 
         public StateBuilder() {
         }
@@ -1937,6 +1940,14 @@ public class MaterialCalendarView extends ViewGroup {
         }
 
         /**
+         * @param calendarDay set the current date to initialize on, null for today
+         */
+        public StateBuilder setDate(@Nullable CalendarDay calendarDay) {
+            date = calendarDay;
+            return this;
+        }
+
+        /**
          * Use this method to enable saving the current position when switching
          * between week and month mode. By default, the calendar update to the latest selected date
          * or the current date. When set to true, the view will used the month that the calendar is
@@ -2018,10 +2029,14 @@ public class MaterialCalendarView extends ViewGroup {
         // Reset height params after mode change
         pager.setLayoutParams(new LayoutParams(calendarMode.visibleWeeksCount + DAY_NAMES_ROW));
 
-        setCurrentDate(
-                selectionMode == SELECTION_MODE_SINGLE && !adapter.getSelectedDates().isEmpty()
-                        ? adapter.getSelectedDates().get(0)
-                        : CalendarDay.today());
+        if (state.currentDate != null) {
+            setCurrentDate(state.currentDate);
+        } else {
+            setCurrentDate(
+                    selectionMode == SELECTION_MODE_SINGLE && !adapter.getSelectedDates().isEmpty()
+                            ? adapter.getSelectedDates().get(0)
+                            : CalendarDay.today());
+        }
 
         if (calendarDayToShow != null) {
             pager.setCurrentItem(adapter.getIndexForDay(calendarDayToShow));
