@@ -23,7 +23,7 @@ dependencies {
     api project(':library')
     //compile 'com.prolificinteractive:material-calendarview:1.4.0'
 
-    api 'com.android.support:appcompat-v7:25.1.1'
-    api 'com.android.support:recyclerview-v7:25.1.1'
-    api 'com.jakewharton:butterknife:7.0.1'
+    api 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    api 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+    api 'com.jakewharton:butterknife:8.8.1'
 }
